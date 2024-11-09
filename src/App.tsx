@@ -7,7 +7,10 @@ function App() {
     console.log(element);
   }
   let sentence: string = "Mostrando la CARD";
-  const miList = ["Bitcoin", "Ethereum", "Solana"];
+  const miList: string[] = ["Bitcoin", "Ethereum", "Solana"];
+  const elementos = miList.length !== 0 && (
+    <List data={miList} onSelect={handleSelect} />
+  );
   if (sentence) {
     return (
       <>
@@ -29,7 +32,7 @@ function App() {
                 title="Card title"
                 text="Some quick example text to build on the card title and make up the bulk of the card's content."
               />
-              <List data={miList} onSelect={handleSelect} />
+              {elementos}
             </Card>
           </div>
         </div>
