@@ -1,29 +1,17 @@
-import { useState } from "react";
-
 type buttonProps = {
   text: string;
+  isLoading?: boolean;
+  onClick: () => void;
 };
 
-function Button({ text }: buttonProps) {
-  function onClick() {
-    setLoading(!loading);
-    console.log("Imprimiendo");
-  }
-  const [loading, setLoading] = useState(false);
-
-  let classBtn = "primary";
-  let content = text;
-  if (loading) {
-    classBtn = "secondary";
-    content = "Cargando...";
-  }
+function Button({ text, isLoading, onClick }: buttonProps) {
   return (
     <button
       onClick={() => onClick()}
-      className={`btn btn-${classBtn} mt-2`}
-      disabled={loading}
+      className={`btn btn-${isLoading ? "secondary" : "primary"} mt-2 w-100`}
+      disabled={isLoading}
     >
-      {content}
+      {isLoading ? "Cargando..." : text}
     </button>
   );
 }

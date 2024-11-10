@@ -15,7 +15,7 @@ function List({ data, onSelect }: ListProps) {
       {data.map((item, i) => (
         <li
           onClick={() => changeItem(i, item)}
-          key={item}
+          key={i}
           className={`list-group-item ${indice == i ? "active" : ""}`}
         >
           {item}
