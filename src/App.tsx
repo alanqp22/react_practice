@@ -1,9 +1,12 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, createContext } from "react";
 import Button from "./components/Button";
 import Card, { BodyCard } from "./components/Card";
 import List from "./components/List";
 
+export const ItemSelectedContext = createContext(null as any);
+
 function App() {
+  const [itemSelected, setItemSelected] = useState(0);
   const [answer, setAnswer] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [miList, setMiList] = useState(["Bitcoin", "Ethereum", "Solana"]);
@@ -15,16 +18,20 @@ function App() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     setAnswer(e.target.value);
   const handleClick = () => setIsLoading(!isLoading);
-  const addItem = () => answer && setMiList([...miList, answer]);
-  const delItem = () => setMiList(miList.slice(0, -1));
+  const addItem = () => {
+    answer && setMiList([...miList, answer]);
+    setAnswer("");
+  };
+  const delItem = (item: number) =>
+    setMiList(miList.filter((c, i) => i !== item));
 
   let sentence: string = "Mostrando la CARD";
   const elementos = miList.length !== 0 && (
-    <List data={miList} onSelect={handleSelect} />
+    <List data={miList} onSelect={handleSelect} onSelected={setItemSelected} />
   );
   if (sentence) {
     return (
-      <>
+      <ItemSelectedContext.Provider value={itemSelected}>
         <h1
           style={{ color: "red", fontFamily: "helvetica", textAlign: "center" }}
         >
@@ -59,7 +66,7 @@ function App() {
                   <Button
                     text="Eliminar"
                     isLoading={isLoading}
-                    onClick={() => delItem()}
+                    onClick={() => delItem(itemSelected)}
                   />
                 </div>
               </div>
@@ -72,7 +79,7 @@ function App() {
             </Card>
           </div>
         </div>
-      </>
+      </ItemSelectedContext.Provider>
     );
   }
   return <p>Hola Mundo Feliz</p>;

@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, Dispatch, SetStateAction } from "react";
+import { ItemSelectedContext } from "../App";
+
 type ListProps = {
   data: string[];
   onSelect?: (element: string) => void;
+  onSelected: Dispatch<SetStateAction<number>>;
 };
 
-function List({ data, onSelect }: ListProps) {
-  let [indice, setIndice] = useState(1);
+function List({ data, onSelect, onSelected }: ListProps) {
+  const itemSelected = useContext(ItemSelectedContext);
   function changeItem(index: number, element: string) {
-    setIndice(index);
     onSelect?.(element);
+    onSelected(index);
   }
   return (
     <ul className="list-group">
@@ -16,7 +19,7 @@ function List({ data, onSelect }: ListProps) {
         <li
           onClick={() => changeItem(i, item)}
           key={i}
-          className={`list-group-item ${indice == i ? "active" : ""}`}
+          className={`list-group-item ${itemSelected == i ? "active" : ""}`}
         >
           {item}
         </li>
