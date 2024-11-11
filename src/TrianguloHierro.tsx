@@ -1,14 +1,14 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useId, useState } from "react";
 import Card, { BodyCard } from "./components/Card";
 import Button from "./components/Button";
 
-type Props = {};
-
-function TrianguloHierro({}: Props) {
+function TrianguloHierro() {
   const [capital, setCapital] = useState("");
   const [cantidadMax, setCantidadMax] = useState("");
   const [pini, setPini] = useState("");
   const [pfini, setPfini] = useState("");
+  const [riesgo, setRiesgo] = useState("0.01");
+  const riesgoSelectedId = useId();
 
   const handleCapitalChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCapital(e.target.value);
@@ -17,7 +17,7 @@ function TrianguloHierro({}: Props) {
   const handlePfiniChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPfini(e.target.value);
   const handleClickCalculo = () => {
-    const maximoRiesgo = parseFloat(capital) * 0.01;
+    const maximoRiesgo = parseFloat(capital) * parseFloat(riesgo);
 
     setCantidadMax(`${maximoRiesgo / (parseFloat(pini) - parseFloat(pfini))}`);
   };
@@ -27,13 +27,39 @@ function TrianguloHierro({}: Props) {
         <BodyCard title="Triangulo de hierro" />
         <div className="row">
           <div className="col-12 mb-2">
-            <label htmlFor="">Capital</label>
+            <div className="row">
+              <div className="col-6">
+                <label htmlFor="">Capital($)</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={capital}
+                  onChange={handleCapitalChange}
+                />
+              </div>
+              <div className="col-6">
+                <label htmlFor={riesgoSelectedId}>Nivel de Riesgo</label>
+                <select
+                  value={riesgo}
+                  onChange={(e) => setRiesgo(e.target.value)}
+                  name=""
+                  id={riesgoSelectedId}
+                  className="form-select"
+                >
+                  <option value="0.01">1% - bajo</option>
+                  <option value="0.02">2% - moderado</option>
+                  <option value="0.03">3% - alto</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 mb-2">
+            <label htmlFor="">Riesgo por operación($) </label>
             <input
+              value={parseFloat(riesgo) * parseFloat(capital)}
               type="number"
+              readOnly
               className="form-control"
-              placeholder="Capital disponible($)"
-              value={capital}
-              onChange={handleCapitalChange}
             />
           </div>
           <div className="col-12 mb-2">
@@ -63,7 +89,7 @@ function TrianguloHierro({}: Props) {
           text="Calcular"
           typeBtn="primary"
         />
-        <label className="mt-4">Cantidad límite de operación</label>
+        <label className="mt-4">Máximas unidades</label>
         <input
           value={cantidadMax}
           type="text"

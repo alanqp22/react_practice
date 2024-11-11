@@ -1,15 +1,13 @@
 import CriptosList from "./CriptosList";
 import TrianguloHierro from "./TrianguloHierro";
 
-type Props = {};
-
-function App({}: Props) {
+function App() {
   return (
     <>
       <h1
         style={{ color: "red", fontFamily: "helvetica", textAlign: "center" }}
       >
-        Utilidades para el trading
+        Caja de Herramientas
       </h1>
       <div className="row">
         <div className="col-6">

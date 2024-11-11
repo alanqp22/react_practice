@@ -5,9 +5,9 @@ interface CardProps {
 }
 
 const Card = (props: CardProps) => {
-  let { children } = props;
+  const { children } = props;
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card" style={{ width: "26rem" }}>
       <div className="card-body">{children}</div>
     </div>
   );
@@ -18,7 +18,7 @@ interface BodyProps {
   text?: string;
 }
 export function BodyCard(props: BodyProps) {
-  let { text, title } = props;
+  const { text, title } = props;
   return (
     <>
       <h5 className="card-title">{title}</h5>
