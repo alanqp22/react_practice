@@ -14,8 +14,8 @@ const Card = (props: CardProps) => {
 };
 
 interface BodyProps {
-  title: string;
-  text: string;
+  title?: string;
+  text?: string;
 }
 export function BodyCard(props: BodyProps) {
   let { text, title } = props;

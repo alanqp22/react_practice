@@ -1,5 +1,5 @@
 import { useContext, Dispatch, SetStateAction } from "react";
-import { ItemSelectedContext } from "../App";
+import { ItemSelectedContext } from "../CriptosList";
 
 type ListProps = {
   data: string[];
