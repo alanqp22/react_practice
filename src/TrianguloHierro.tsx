@@ -10,6 +10,8 @@ function TrianguloHierro() {
   const [riesgo, setRiesgo] = useState("0.01");
   const riesgoSelectedId = useId();
 
+  const perdidasMaximas: number = 0.06;
+
   const handleCapitalChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCapital(e.target.value);
   const handlePiniChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -26,41 +28,50 @@ function TrianguloHierro() {
       <Card>
         <BodyCard title="Triangulo de hierro" />
         <div className="row">
-          <div className="col-12 mb-2">
-            <div className="row">
-              <div className="col-6">
-                <label htmlFor="">Capital($)</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={capital}
-                  onChange={handleCapitalChange}
-                />
-              </div>
-              <div className="col-6">
-                <label htmlFor={riesgoSelectedId}>Nivel de Riesgo</label>
-                <select
-                  value={riesgo}
-                  onChange={(e) => setRiesgo(e.target.value)}
-                  name=""
-                  id={riesgoSelectedId}
-                  className="form-select"
-                >
-                  <option value="0.01">1% - bajo</option>
-                  <option value="0.02">2% - moderado</option>
-                  <option value="0.03">3% - alto</option>
-                </select>
-              </div>
+          <div className="row mb-2">
+            <div className="col-6">
+              <label htmlFor="">Capital($)</label>
+              <input
+                type="number"
+                className="form-control"
+                value={capital}
+                onChange={handleCapitalChange}
+              />
+            </div>
+            <div className="col-6">
+              <label htmlFor={riesgoSelectedId}>Nivel de Riesgo</label>
+              <select
+                value={riesgo}
+                onChange={(e) => setRiesgo(e.target.value)}
+                name=""
+                id={riesgoSelectedId}
+                className="form-select"
+              >
+                <option value="0.01">1% - bajo</option>
+                <option value="0.02">2% - moderado</option>
+                <option value="0.03">3% - alto</option>
+              </select>
             </div>
           </div>
-          <div className="col-12 mb-2">
-            <label htmlFor="">Riesgo por operación($) </label>
-            <input
-              value={parseFloat(riesgo) * parseFloat(capital)}
-              type="number"
-              readOnly
-              className="form-control"
-            />
+          <div className="row mb-2">
+            <div className="col-6">
+              <label htmlFor="">Riesgo en $ </label>
+              <input
+                value={parseFloat(riesgo) * parseFloat(capital)}
+                type="number"
+                readOnly
+                className="form-control"
+              />
+            </div>
+            <div className="col-6">
+              <label htmlFor="">Perdidas Maximas $</label>
+              <input
+                value={parseFloat(capital) * perdidasMaximas}
+                type="number"
+                readOnly
+                className="form-control"
+              />
+            </div>
           </div>
           <div className="col-12 mb-2">
             <label htmlFor="">Precio de entrada</label>
