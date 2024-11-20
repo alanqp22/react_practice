@@ -10,16 +10,14 @@ type buttonProps = {
   onClick: () => void;
 };
 
-function Button({ text, isLoading, onClick, typeBtn }: buttonProps) {
+export const Button = ({ text, isLoading, onClick, typeBtn }: buttonProps) => {
   return (
     <MyBtn
-      onClick={() => onClick()}
+      onClick={onClick}
       className={`btn btn-${isLoading ? "secondary" : typeBtn} mt-2 w-100`}
       disabled={isLoading}
     >
       {isLoading ? "Cargando..." : text}
     </MyBtn>
   );
-}
-
-export default Button;
+};
