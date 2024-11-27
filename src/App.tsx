@@ -1,9 +1,11 @@
 import Card, { BodyCard } from "./components/Card";
 import Home from "./components/Home";
+import { Table } from "./components/Table";
 import CriptosList from "./CriptosList";
+import { Person } from "./models/Person";
 import TrianguloHierro from "./TrianguloHierro";
-
 function App() {
+  const persona = new Person("alan", "quispe", 29, 1234, false);
   return (
     <>
       <h1
@@ -25,6 +27,9 @@ function App() {
             <BodyCard text="Convex backend" title="Book Collections" />
             <Home />
           </Card>
+        </div>
+        <div className="col-6">
+          <Table person={persona} />
         </div>
       </div>
     </>
