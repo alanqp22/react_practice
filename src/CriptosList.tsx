@@ -1,9 +1,8 @@
-import { ChangeEvent, useState, createContext } from "react";
-import Button from "./components/Button";
+import { ChangeEvent, useState } from "react";
+import { Button } from "./components";
 import Card, { BodyCard } from "./components/Card";
 import List from "./components/List";
-
-export const ItemSelectedContext = createContext(null as any);
+import { ItemSelectedContext } from "./ItemSelectedContext";
 
 function CriptosList() {
   const [itemSelected, setItemSelected] = useState(0);
@@ -19,11 +18,13 @@ function CriptosList() {
     setAnswer(e.target.value);
   const handleClick = () => setIsLoading(!isLoading);
   const addItem = () => {
-    answer && setMiList([...miList, answer]);
+    if (answer) {
+      setMiList([...miList, answer]);
+    }
     setAnswer("");
   };
   const delItem = (item: number) =>
-    setMiList(miList.filter((c, i) => i !== item));
+    setMiList(miList.filter((_, i) => i !== item));
 
   const elementos = miList.length !== 0 && (
     <List data={miList} onSelect={handleSelect} onSelected={setItemSelected} />

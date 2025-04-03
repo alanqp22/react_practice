@@ -1,6 +1,6 @@
 import { ChangeEvent, useId, useState } from "react";
 import Card, { BodyCard } from "./components/Card";
-import Button from "./components/Button";
+import { Button } from "./components";
 
 function TrianguloHierro() {
   const [capital, setCapital] = useState("");
